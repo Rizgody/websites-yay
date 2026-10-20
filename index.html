@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GN Math - Unblocked Games</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        .search-box {
+            max-width: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-box input::placeholder { color: #888; }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .game-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .game-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.14);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            border-color: #3a7bd5;
+        }
+        .game-icon {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        .game-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .game-tag {
+            font-size: 0.75rem;
+            color: #8ab4f8;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .stealth-note {
+            text-align: center;
+            margin: 15px 0 25px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .zones-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .zones-link a {
+            color: #8ab4f8;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GN Math</h1>
+        <p class="subtitle">Unblocked Games Hub</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search games..." oninput="filterGames()">
+    </div>
+
+    <p class="stealth-note">Click a game to open it. More games available in /public/zones/</p>
+
+    <div class="games-grid" id="gamesGrid">
+        <!-- Games injected by JS -->
+    </div>
+
+    <div class="zones-link">
+        <a href="public/zones/" target="_blank">Browse all zone files →</a>
+    </div>
+
+    <footer>
+        Free browser games • No downloads • Works on school networks<br>
+        Hosted on GitHub Pages • <a href="https://github.com/Rizgody/websites-yay" style="color:#8ab4f8">Source</a>
+    </footer>
+
+    <script>
+        const games = [
+            { name: "Bird Game", icon: "🐦", tag: "Classic", type: "blob",
+              html: `<!DOCTYPE html><html><head><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/style.css"><script src="https://cdn.jsdelivr.net/gh/lee2sman/everyday@d45d601d2c4d60adf809a0b677c00b7d12aba7e9/96/TemplateData/UnityProgress.js"><\/script><script src="https://cdn.jsdelivr.net/gh/gertdoro/UnityExplorer@cffa09e09790018403c996d37adb6c4450e8f6c6/Runtime/birds/birds.js"><\/script><style>body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:black}</style></head><body><div class="webgl-content"><div id="gameContainer" style="width:100vw;height:100vh"></div></div><script>var gameInstance=UnityLoader.instantiate("gameContainer","https://cdn.jsdelivr.net/gh/gertdoro/UnityExplorer@cffa09e09790018403c996d37adb6c4450e8f6c6/Runtime/birds/birds.json",{onProgress:UnityProgress,Module:{onRuntimeInitialized:function(){UnityProgress(gameInstance,"complete")}}});<\/script></body></html>` },
+            { name: "Slope", icon: "🎢", tag: "Endless", type: "link", url: "https://slopegame.io/" },
+            { name: "Retro Bowl", icon: "🏈", tag: "Sports", type: "link", url: "https://retrobowl.me/" },
+            { name: "Run 3", icon: "🏃", tag: "Runner", type: "link", url: "https://run3.io/" },
+            { name: "Geometry Dash", icon: "🔺", tag: "Rhythm", type: "link", url: "https://geometrydash.io/" },
+            { name: "Monkey Mart", icon: "🐵", tag: "Idle", type: "link", url: "https://monkeymart.io/" },
+            { name: "Drift Boss", icon: "🚗", tag: "Driving", type: "link", url: "https://drift-boss.io/" },
+            { name: "OvO", icon: "🥚", tag: "Platformer", type: "link", url: "https://ovo.game/" },
+            { name: "Snow Rider 3D", icon: "🏂", tag: "3D", type: "link", url: "https://snowrider3d.io/" },
+            { name: "Moto X3M", icon: "🏍️", tag: "Racing", type: "link", url: "https://motox3m.io/" },
+            { name: "Stickman Hook", icon: "🪢", tag: "Physics", type: "link", url: "https://stickmanhook.io/" },
+            { name: "Tunnel Rush", icon: "🌀", tag: "Endless", type: "link", url: "https://tunnelrush.io/" }
+        ];
+
+        function renderGames(list) {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+            list.forEach(game => {
+                const card = document.createElement(game.type === 'link' ? 'a' : 'div');
+                card.className = 'game-card';
+                if (game.type === 'link') {
+                    card.href = game.url;
+                    card.target = '_blank';
+                    card.rel = 'noopener';
+                } else {
+                    card.onclick = () => {
+                        const blob = new Blob([game.html], { type: 'text/html' });
+                        window.open(URL.createObjectURL(blob), '_blank');
+                    };
+                }
+                card.innerHTML = `
+                    <div class="game-icon">${game.icon}</div>
+                    <div class="game-title">${game.name}</div>
+                    <div class="game-tag">${game.tag}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterGames() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filtered = games.filter(g =>
+                g.name.toLowerCase().includes(query) ||
+                g.tag.toLowerCase().includes(query)
+            );
+            renderGames(filtered);
+        }
+
+        renderGames(games);
+    </script>
+</body>
+</html>
